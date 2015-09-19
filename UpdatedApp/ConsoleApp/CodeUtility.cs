@@ -22,12 +22,9 @@ namespace ConsoleApp
             var folderPath = Path.Combine(Environment.CurrentDirectory, folderName);
             Directory.CreateDirectory(folderPath);
 
-            Parallel.ForEach(types, x =>
+            Parallel.ForEach(GetFilteredTypes(types), x =>
             {
-                if (!x.IsGenericType && !x.Name.Contains("<"))
-                {
-                    hashKeys.Add(x.Name);
-                }
+                hashKeys.Add(x.Name);
             });
 
             if (typeNames != null && typeNames.Count() > 0)
@@ -41,7 +38,7 @@ namespace ConsoleApp
 
             ConcurrentQueue<string> buffer = new ConcurrentQueue<string>();
 
-            Parallel.ForEach(types, type =>
+            Parallel.ForEach(GetFilteredTypes(types), type =>
             {
                 try
                 {
@@ -201,12 +198,9 @@ namespace ConsoleApp
             var folderPath = Path.Combine(Environment.CurrentDirectory, folderName);
             Directory.CreateDirectory(folderPath);
 
-            Parallel.ForEach(types, x =>
+            Parallel.ForEach(GetFilteredTypes(types), x =>
             {
-                if (!x.IsGenericType && !x.Name.Contains("<"))
-                {
-                    hashKeys.Add(x.Name);
-                }
+                hashKeys.Add(x.Name);
             });
 
             if (typeNames != null && typeNames.Count() > 0)
@@ -220,7 +214,7 @@ namespace ConsoleApp
 
             ConcurrentQueue<string> buffer = new ConcurrentQueue<string>();
 
-            Parallel.ForEach(types, type =>
+            Parallel.ForEach(GetFilteredTypes(types), type =>
             {
                 try
                 {
@@ -234,12 +228,14 @@ namespace ConsoleApp
 
                             using (StreamWriter writer = new StreamWriter(string.Format("{0}\\{1}.cs", folderPath, typeName)))
                             {
+                                writer.WriteLine("using System;");
+
                                 if (isViewModel)
                                 {
                                     writer.WriteLine("using System.ComponentModel;");
-                                    writer.WriteLine();
                                 }
 
+                                writer.WriteLine();
                                 writer.WriteLine("namespace " + mainNamespace);
                                 writer.WriteLine("{");
                                 writer.WriteLine("    public class {0}", typeName);
@@ -304,12 +300,9 @@ namespace ConsoleApp
             var typeList = assembly.GetTypes();
             var typeMap = new Dictionary<Type, Tuple<string, string>>();
 
-            for (int x = 0; x < typeList.Length; x++)
+            foreach (var type in GetFilteredTypes(typeList))
             {
-                if (!typeList[x].IsGenericType && !typeList[x].Name.Contains("<"))
-                {
-                    typeMap.Add(typeList[x], new Tuple<string, string>(typeList[x].Name, GetCamelCaseName(typeList[x].Name)));
-                }
+                typeMap.Add(type, new Tuple<string, string>(type.Name, GetCamelCaseName(type.Name)));
             }
 
             ConcurrentQueue<string> buffer = new ConcurrentQueue<string>();
@@ -404,12 +397,9 @@ namespace ConsoleApp
             var folderPath = Path.Combine(Environment.CurrentDirectory, folderName);
             Directory.CreateDirectory(folderPath);
 
-            Parallel.ForEach(types, x =>
+            Parallel.ForEach(GetFilteredTypes(types), x =>
             {
-                if (!x.IsGenericType && !x.Name.Contains("<"))
-                {
-                    hashKeys.Add(x.Name);
-                }
+                hashKeys.Add(x.Name);
             });
 
             if (typeNames != null && typeNames.Count() > 0)
@@ -423,7 +413,7 @@ namespace ConsoleApp
 
             ConcurrentQueue<string> buffer = new ConcurrentQueue<string>();
 
-            Parallel.ForEach(types, type =>
+            Parallel.ForEach(GetFilteredTypes(types), type =>
             {
                 try
                 {
@@ -478,7 +468,7 @@ namespace ConsoleApp
                                 writer.WriteLine("    @Html.AntiForgeryToken()");
                                 writer.WriteLine();
                                 writer.WriteLine("    <div class=\"form-horizontal\">");
-                                writer.WriteLine("        <h4>{0}</h4>", typeName);
+                                writer.WriteLine("        <h4>{0}</h4>", GetDisplayName(typeName));
                                 writer.WriteLine("        <hr />");
                                 writer.WriteLine("        @Html.ValidationSummary(true)");
                                 writer.WriteLine();
@@ -537,7 +527,7 @@ namespace ConsoleApp
                                 writer.WriteLine();
                                 writer.WriteLine("<h3>Are you sure you want to delete this?</h3>");
                                 writer.WriteLine("<div>");
-                                writer.WriteLine("    <h4>{0}</h4>", typeName);
+                                writer.WriteLine("    <h4>{0}</h4>", GetDisplayName(typeName));
                                 writer.WriteLine("    <hr />");
 
                                 foreach (var localProperty in propertyNames)
@@ -582,7 +572,7 @@ namespace ConsoleApp
                                 writer.WriteLine("<h2>Details</h2>");
                                 writer.WriteLine();
                                 writer.WriteLine("<div>");
-                                writer.WriteLine("    <h4>{0}</h4>", typeName);
+                                writer.WriteLine("    <h4>{0}</h4>", GetDisplayName(typeName));
                                 writer.WriteLine("    <hr />");
 
                                 foreach (var localProperty in propertyNames)
@@ -628,7 +618,7 @@ namespace ConsoleApp
                                 writer.WriteLine("    @Html.AntiForgeryToken()");
                                 writer.WriteLine();
                                 writer.WriteLine("    <div class=\"form-horizontal\">");
-                                writer.WriteLine("        <h4>{0}</h4>", typeName);
+                                writer.WriteLine("        <h4>{0}</h4>", GetDisplayName(typeName));
                                 writer.WriteLine("        <hr />");
                                 writer.WriteLine("        @Html.ValidationSummary(true)");
                                 writer.WriteLine("        @Html.HiddenFor(model => model.Id)");
@@ -686,6 +676,8 @@ namespace ConsoleApp
                                 writer.WriteLine("}");
                                 writer.WriteLine();
                                 writer.WriteLine("<h2>Index</h2>");
+                                writer.WriteLine();
+                                writer.WriteLine("<h4>{0}</h4>", GetDisplayName(typeName));
                                 writer.WriteLine();
                                 writer.WriteLine("<p>");
                                 writer.WriteLine("    @Html.ActionLink(\"Create New\", \"Create\")");
@@ -762,8 +754,12 @@ namespace ConsoleApp
             for (var x = 0; x < tokens.Length; x++)
             {
                 var token = tokens[x];
-                token = token.Substring(0, 1).ToUpper() + (token.Length > 1 ? token.Substring(1, token.Length - 1) : string.Empty);
-                camelCaseName += token;
+
+                if (x != 0 || token.Length > 1)
+                {
+                    token = token.Substring(0, 1).ToUpper() + (token.Length > 1 ? token.Substring(1, token.Length - 1) : string.Empty);
+                    camelCaseName += token;
+                }
             }
 
             return camelCaseName;
@@ -782,7 +778,20 @@ namespace ConsoleApp
                 displayName += (hashKeys.Contains(token) ? " " : string.Empty) + token;
             }
 
-            return displayName.Trim();
+            displayName = (displayName.EndsWith(" Id") && displayName.Length > 3 ? displayName.Substring(0, displayName.Length - 3) : displayName).Trim();
+
+            return displayName;
+        }
+
+        public static IEnumerable<Type> GetFilteredTypes(IEnumerable<Type> typeList)
+        {
+            foreach (var type in typeList)
+            {
+                if (!type.IsGenericType && !type.Name.Contains("<") && !type.Name.Contains("=") && type.BaseType.Name != "DbContext")
+                {
+                    yield return type;
+                }
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
