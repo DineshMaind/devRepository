@@ -787,7 +787,7 @@ namespace ConsoleApp
         {
             foreach (var type in typeList)
             {
-                if (!type.IsGenericType && !type.Name.Contains("<") && !type.Name.Contains("=") && type.BaseType.Name != "DbContext")
+                if (!type.IsGenericType && !type.Name.Contains("<") && !type.Name.Contains("=") && (type.BaseType == null || (type.BaseType != null && type.BaseType.Name != "DbContext")))
                 {
                     yield return type;
                 }
