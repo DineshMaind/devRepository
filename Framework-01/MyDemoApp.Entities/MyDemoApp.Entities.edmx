@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MvcWebDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="500" />
+          <Property Name="department_id" Type="bigint" />
+        </EntityType>
+        <EntityType Name="sample_data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="col01" Type="nvarchar" MaxLength="500" />
+          <Property Name="col02" Type="nvarchar" MaxLength="500" />
+          <Property Name="col03" Type="nvarchar" MaxLength="500" />
+          <Property Name="col04" Type="nvarchar" MaxLength="500" />
+          <Property Name="col05" Type="nvarchar" MaxLength="500" />
+          <Property Name="col06" Type="nvarchar" MaxLength="500" />
+          <Property Name="col07" Type="nvarchar" MaxLength="500" />
+          <Property Name="col08" Type="nvarchar" MaxLength="500" />
+          <Property Name="col09" Type="nvarchar" MaxLength="500" />
+          <Property Name="col10" Type="nvarchar" MaxLength="500" />
+          <Property Name="col11" Type="nvarchar" MaxLength="500" />
+          <Property Name="col12" Type="nvarchar" MaxLength="500" />
+          <Property Name="col13" Type="nvarchar" MaxLength="500" />
+          <Property Name="col14" Type="nvarchar" MaxLength="500" />
+          <Property Name="col15" Type="nvarchar" MaxLength="500" />
+          <Property Name="col16" Type="nvarchar" MaxLength="500" />
+          <Property Name="col17" Type="nvarchar" MaxLength="500" />
+          <Property Name="col18" Type="nvarchar" MaxLength="500" />
+          <Property Name="col19" Type="nvarchar" MaxLength="500" />
+          <Property Name="col20" Type="nvarchar" MaxLength="500" />
+          <Property Name="col21" Type="nvarchar" MaxLength="500" />
+          <Property Name="col22" Type="nvarchar" MaxLength="500" />
+          <Property Name="col23" Type="nvarchar" MaxLength="500" />
+          <Property Name="col24" Type="nvarchar" MaxLength="500" />
+          <Property Name="col25" Type="nvarchar" MaxLength="500" />
+          <Property Name="col26" Type="nvarchar" MaxLength="500" />
+          <Property Name="col27" Type="nvarchar" MaxLength="500" />
+          <Property Name="col28" Type="nvarchar" MaxLength="500" />
+          <Property Name="col29" Type="nvarchar" MaxLength="500" />
+          <Property Name="col30" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <Association Name="employee_fk_department_id">
+          <End Role="department" Type="Self.department" Multiplicity="0..1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MvcWebDBModelStoreContainer">
+          <EntitySet Name="department" EntityType="Self.department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sample_data" EntityType="Self.sample_data" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="employee_fk_department_id" Association="Self.employee_fk_department_id">
+            <End Role="department" EntitySet="department" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MvcWebDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="employees" Relationship="Self.employee_fk_department_id" FromRole="department" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="department_id" Type="Int64" />
+          <NavigationProperty Name="department" Relationship="Self.employee_fk_department_id" FromRole="employee" ToRole="department" />
+        </EntityType>
+        <EntityType Name="sample_data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="col01" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col02" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col03" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col04" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col05" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col06" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col07" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col08" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col09" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col10" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col11" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col12" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col13" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col14" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col15" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col16" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col17" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col18" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col19" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col20" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col21" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col22" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col23" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col24" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col25" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col26" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col27" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col28" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col29" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="col30" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="employee_fk_department_id">
+          <End Role="department" Type="Self.department" Multiplicity="0..1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyDemoAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="departments" EntityType="Self.department" />
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="sample_data" EntityType="Self.sample_data" />
+          <AssociationSet Name="employee_fk_department_id" Association="Self.employee_fk_department_id">
+            <End Role="department" EntitySet="departments" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MvcWebDBModelStoreContainer" CdmEntityContainer="MyDemoAppEntities">
+          <EntitySetMapping Name="departments">
+            <EntityTypeMapping TypeName="MvcWebDBModel.department">
+              <MappingFragment StoreEntitySet="department">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="MvcWebDBModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sample_data">
+            <EntityTypeMapping TypeName="MvcWebDBModel.sample_data">
+              <MappingFragment StoreEntitySet="sample_data">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="col01" ColumnName="col01" />
+                <ScalarProperty Name="col02" ColumnName="col02" />
+                <ScalarProperty Name="col03" ColumnName="col03" />
+                <ScalarProperty Name="col04" ColumnName="col04" />
+                <ScalarProperty Name="col05" ColumnName="col05" />
+                <ScalarProperty Name="col06" ColumnName="col06" />
+                <ScalarProperty Name="col07" ColumnName="col07" />
+                <ScalarProperty Name="col08" ColumnName="col08" />
+                <ScalarProperty Name="col09" ColumnName="col09" />
+                <ScalarProperty Name="col10" ColumnName="col10" />
+                <ScalarProperty Name="col11" ColumnName="col11" />
+                <ScalarProperty Name="col12" ColumnName="col12" />
+                <ScalarProperty Name="col13" ColumnName="col13" />
+                <ScalarProperty Name="col14" ColumnName="col14" />
+                <ScalarProperty Name="col15" ColumnName="col15" />
+                <ScalarProperty Name="col16" ColumnName="col16" />
+                <ScalarProperty Name="col17" ColumnName="col17" />
+                <ScalarProperty Name="col18" ColumnName="col18" />
+                <ScalarProperty Name="col19" ColumnName="col19" />
+                <ScalarProperty Name="col20" ColumnName="col20" />
+                <ScalarProperty Name="col21" ColumnName="col21" />
+                <ScalarProperty Name="col22" ColumnName="col22" />
+                <ScalarProperty Name="col23" ColumnName="col23" />
+                <ScalarProperty Name="col24" ColumnName="col24" />
+                <ScalarProperty Name="col25" ColumnName="col25" />
+                <ScalarProperty Name="col26" ColumnName="col26" />
+                <ScalarProperty Name="col27" ColumnName="col27" />
+                <ScalarProperty Name="col28" ColumnName="col28" />
+                <ScalarProperty Name="col29" ColumnName="col29" />
+                <ScalarProperty Name="col30" ColumnName="col30" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

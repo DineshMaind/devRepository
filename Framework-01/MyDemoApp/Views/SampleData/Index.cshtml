@@ -1,0 +1,215 @@
+@model MyDemoApp.Core.IPagedList<SampleDataViewModel>
+@using MyDemoApp.Infrastructure
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<h4>Sample Data</h4>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@Html.Pager(Model, page => Url.Action("Index", new { page = page }))
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col01)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col02)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col03)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col04)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col05)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col06)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col07)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col08)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col09)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col10)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col11)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col12)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col13)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col14)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col15)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col16)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col17)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col18)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col19)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col20)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col21)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col22)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col23)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col24)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col25)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col26)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col27)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col28)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col29)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Col30)
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col01)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col02)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col03)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col04)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col05)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col06)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col07)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col08)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col09)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col10)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col11)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col12)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col13)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col14)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col15)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col16)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col17)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col18)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col19)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col20)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col21)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col22)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col23)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col24)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col25)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col26)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col27)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col28)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col29)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Col30)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>
